@@ -115,7 +115,7 @@ Please refer to the [API Reference](https://pub.dev/documentation/torch_flashlig
 
 ## Support
 
-For help on usage or to report issues, please [open an issue](https://github.com/torch_flashlight/issues).
+For help on usage or to report issues, please [open an issue](https://github.com/shirsh94/torch_flashlight/issues).
 
 ## License
 
