@@ -1,3 +1,6 @@
+## 0.0.2
+- Marshmallow annotation added on a android.
+
 ## 0.0.1
 - Initial release of the `torch_flashlight` plugin.
 - Features:

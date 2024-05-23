@@ -29,7 +29,7 @@ Add `torch_flashlight` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  torch_flashlight: ^0.0.1
+  torch_flashlight: ^0.0.2
 ```
 
 Install the package by running:
@@ -51,11 +51,7 @@ import 'package:torch_flashlight/torch_flashlight.dart';
 To check if the torch functionality is available on the device:
 
 ```dart
-try {
   bool isAvailable = await TorchFlashlight.isTorchFlashlightAvailable();
-} on TorchException catch (e) {
-  print('Error checking torch availability: ${e.message}');
-}
 ```
 
 ### Enable Torch
@@ -63,11 +59,7 @@ try {
 To enable the torch (flashlight) on the device:
 
 ```dart
-try {
   await TorchFlashlight.enableTorchFlashlight();
-} on TorchException catch (e) {
-  print('Error enabling torch: ${e.message}');
-}
 ```
 
 ### Disable Torch
@@ -75,11 +67,7 @@ try {
 To disable the torch (flashlight) on the device:
 
 ```dart
-try {
   await TorchFlashlight.disableTorchFlashlight();
-} on TorchException catch (e) {
-  print('Error disabling torch: ${e.message}');
-}
 ```
 
 ### Toggle Torch Periodically
@@ -87,14 +75,11 @@ try {
 To toggle the torch (flashlight) periodically:
 
 ```dart
-try {
+
   await TorchFlashlight.torchFlashlightEnableDisablePeriodically(
     onOffInterval: Duration(seconds: 1),
     disableTorchRandomlyInSeconds: true,
   );
-} on TorchException catch (e) {
-  print('Error toggling torch periodically: ${e.message}');
-}
 ```
 
 ### Stop Torch Toggling
@@ -102,11 +87,7 @@ try {
 To stop the torch (flashlight) from toggling periodically:
 
 ```dart
-try {
   await TorchFlashlight.stopTorchFlashlightPeriodically();
-} on TorchException catch (e) {
-  print('Error stopping torch toggling: ${e.message}');
-}
 ```
 
 ## API Reference

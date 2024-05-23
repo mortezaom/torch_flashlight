@@ -4,21 +4,17 @@ import android.content.Context.CAMERA_SERVICE
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
+import android.os.Build
 import android.util.Log
-import androidx.annotation.NonNull
-
+import androidx.annotation.RequiresApi
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 
-private const val TAG = "torch_light_plugin"
-
+private const val TAG = "torch_flashlight_plugin"
 private const val CHANNEL = "torch_flashlight"
-
 private const val NATIVE_EVENT_TORCH_AVAILABLE = "torch_available"
-
 private const val NATIVE_EVENT_ENABLE_TORCH = "enable_torch"
 private const val ERROR_ENABLE_TORCH_EXISTENT_USER = "enable_torch_error_existent_user"
 private const val ERROR_ENABLE_TORCH = "enable_torch_error"
@@ -38,7 +34,8 @@ class TorchFlashlightPlugin : FlutterPlugin, MethodCallHandler {
 
   // *************************************** LIFECYCLE *************************************** //
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+  override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     context = flutterPluginBinding.getApplicationContext()
 
     cameraManager = context.getSystemService(CAMERA_SERVICE) as CameraManager
@@ -53,7 +50,8 @@ class TorchFlashlightPlugin : FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(this)
   }
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: MethodChannel.Result) {
+  @RequiresApi(Build.VERSION_CODES.M)
+  override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
     when (call.method) {
       NATIVE_EVENT_TORCH_AVAILABLE -> isTorchAvailable(result)
       NATIVE_EVENT_ENABLE_TORCH -> enableTorch(result)
@@ -61,7 +59,7 @@ class TorchFlashlightPlugin : FlutterPlugin, MethodCallHandler {
     }
   }
 
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
   }
 
@@ -71,6 +69,7 @@ class TorchFlashlightPlugin : FlutterPlugin, MethodCallHandler {
     result.success(context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH))
   }
 
+  @RequiresApi(Build.VERSION_CODES.M)
   private fun enableTorch(result: MethodChannel.Result) {
     if (cameraId != null) {
       try {
@@ -95,6 +94,7 @@ class TorchFlashlightPlugin : FlutterPlugin, MethodCallHandler {
     }
   }
 
+  @RequiresApi(Build.VERSION_CODES.M)
   private fun disableTorch(result: MethodChannel.Result) {
     if (cameraId != null) {
       try {

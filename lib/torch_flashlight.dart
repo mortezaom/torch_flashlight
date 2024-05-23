@@ -102,14 +102,10 @@ class TorchFlashlight {
     int randomMinutes = Random().nextInt(60);
     int randomHours = Random().nextInt(24);
 
-    print('randomSeconds: $randomSeconds');
-    print('randomMinutes: $randomMinutes');
-    print('randomHours: $randomHours');
-
     void toggleTorch() {
       if (isTorchEnabled) {
-        disableTorchFlashlight().catchError(
-            (e) => FlashlightOffException(message: 'Error disabling torch: $e'));
+        disableTorchFlashlight().catchError((e) =>
+            FlashlightOffException(message: 'Error disabling torch: $e'));
       } else {
         enableTorchFlashlight().catchError(
             (e) => FlashlightOffException(message: 'Error enabling torch: $e'));
@@ -124,8 +120,8 @@ class TorchFlashlight {
     Timer(stopAfterDuration, () {
       _periodicTimer?.cancel();
       if (isTorchEnabled) {
-        disableTorchFlashlight().catchError(
-            (e) => FlashlightOffException(message: 'Error disabling torch: $e'));
+        disableTorchFlashlight().catchError((e) =>
+            FlashlightOffException(message: 'Error disabling torch: $e'));
         isTorchEnabled = false;
       }
     });
@@ -148,8 +144,8 @@ class TorchFlashlight {
       await Future.any(futures);
       _periodicTimer?.cancel();
       if (isTorchEnabled) {
-        disableTorchFlashlight().catchError(
-            (e) => FlashlightOffException(message: 'Error disabling torch: $e'));
+        disableTorchFlashlight().catchError((e) =>
+            FlashlightOffException(message: 'Error disabling torch: $e'));
         isTorchEnabled = false;
       }
     }
@@ -164,11 +160,10 @@ class TorchFlashlight {
 
       // Attempt to disable the torch flashlight, catching any errors and throwing a custom exception.
       disableTorchFlashlight().catchError(
-              (e) => FlashlightOffException(message: 'Error disabling torch: $e'));
+          (e) => FlashlightOffException(message: 'Error disabling torch: $e'));
     } catch (e) {
       // If an error occurs, throw a custom exception with the error message.
       throw FlashlightOffException(message: e.toString());
     }
   }
-
 }
